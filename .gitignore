@@ -1,0 +1,16 @@
+*.class
+*.log
+
+# idea
+/.idea
+/target
+*.iml
+
+.venv/
+venv/
+venv_p/
+dist/
+*.egg-info/
+build/
+### Mac ###
+.DS_Store
