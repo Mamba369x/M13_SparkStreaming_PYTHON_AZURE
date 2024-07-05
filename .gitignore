@@ -13,4 +13,9 @@ dist/
 *.egg-info/
 build/
 ### Mac ###
+.terraform
+.terraform.*
+terraform.*
+env.sh
+__pycache__
 .DS_Store
