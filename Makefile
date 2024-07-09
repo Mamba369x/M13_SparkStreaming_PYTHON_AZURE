@@ -34,6 +34,8 @@ start:
 	echo "$(SET_ENV) DATABRICKS_WORKSPACE_ID=$$DATABRICKS_WORKSPACE_ID" >> env.sh
 
 upload:
+	rm -f upload.log && \
+	sleep 1 && \
 	cd terraform && \
 	source env.sh && \
 	cd .. && \
@@ -41,29 +43,12 @@ upload:
 		--master local[*] \
 		--conf spark.executor.instances=4 \
 		--conf spark.jars.packages=org.apache.hadoop:hadoop-azure:3.3.1,org.apache.hadoop:hadoop-azure-datalake:3.3.1,com.microsoft.azure:azure-storage:8.6.6 \
-			notebooks/upload.py \
+		src/main/python/upload.py \
 		--storageaccount $$STORAGE_ACCOUNT_NAME \
 		--container $$STORAGE_CONTAINER_NAME \
 		--tfvarclientid $$TF_VAR_CLIENT_ID \
 		--tfvarclientsecret $$TF_VAR_CLIENT_SECRET \
-		--tfvartenantid $$TF_VAR_TENANT_ID \
-		--opencageapikey $$OPENCAGEAPIKEY 2>&1 | tee "upload.log"
-
-run:
-	cd terraform && \
-	source env.sh && \
-	cd .. && \
-	spark-submit \
-		--master local[*] \
-		--conf spark.executor.instances=4 \
-		--conf spark.jars.packages=org.apache.hadoop:hadoop-azure:3.3.1,org.apache.hadoop:hadoop-azure-datalake:3.3.1,com.microsoft.azure:azure-storage:8.6.6 \
-			notebooks/streaming.py \
-		--storageaccount $$STORAGE_ACCOUNT_NAME \
-		--container $$STORAGE_CONTAINER_NAME \
-		--tfvarclientid $$TF_VAR_CLIENT_ID \
-		--tfvarclientsecret $$TF_VAR_CLIENT_SECRET \
-		--tfvartenantid $$TF_VAR_TENANT_ID \
-		--opencageapikey $$OPENCAGEAPIKEY 2>&1 | tee "stream.log"
+		--tfvartenantid $$TF_VAR_TENANT_ID 2>&1 | tee "upload.log"
 
 destroy:
 	cd terraform && \

@@ -32,22 +32,18 @@ export TF_VAR_SUBSCRIPTION_ID=<your_subscription_id>
 
 * Step 1: First step involes creating terraform infrastructure and databricks cluster
 
-
-
 ```bash
 make start
 ```
 
-![Step 1:](src/terraform_created.png)
+![Step 1:](screenshots/terraform_created.png)
 
-* Step 2:
+* Step 2: Upload incremental copy with configurable CYCLES_DELAY_TIME equaling 1 second by default
 
-![Step 2:](src/databricks_job_started.png)
+![Step 2:](screenshots/data_uploading.png)
+![Step 2:](screenshots/incremental_data.png)
 
-df = (
-    spark.readStream
-    .format("cloudFiles")
-    .option("cloudFiles.format", "parquet")
-    .schema(schema)
-    .load(input_path)
-)
+* Step 3-: Naviate to azure databricks workspace, upload and launch notebook stream.ipynb
+
+![Step 3:](screenshots/execution_plan.png)
+

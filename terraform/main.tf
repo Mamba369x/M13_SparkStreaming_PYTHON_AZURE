@@ -73,7 +73,7 @@ resource "azurerm_databricks_workspace" "bdcc" {
   name                = "dbw${var.ENV}${var.LOCATION}"
   resource_group_name = azurerm_resource_group.bdcc.name
   location            = azurerm_resource_group.bdcc.location
-  sku                 = "standard"
+  sku                 = "premium"
 
   tags = {
     region = var.BDCC_REGION
@@ -90,18 +90,13 @@ data "azurerm_databricks_workspace" "bdcc" {
 resource "databricks_cluster" "bdcc" {
   cluster_name            = "cluster${var.ENV}${var.LOCATION}"
   spark_version           = "12.2.x-cpu-ml-scala2.12"
-  node_type_id            = "Standard_D8s_v3"
-  autotermination_minutes = 20
+  node_type_id            = "Standard_DS4_v2"
 
   num_workers = 8
 
   spark_conf = {
     "spark.databricks.cluster.profile" : "singleNode"
     "spark.master" : "local[*]"
-    "spark.executor.memory" : "20g"
-    "spark.executor.cores" : "4"
-    "spark.driver.memory" : "20g"
-    "spark.driver.cores" : "4"
   }
 
   spark_env_vars = {
@@ -119,7 +114,7 @@ resource "databricks_cluster" "bdcc" {
 
 
 resource "databricks_notebook" "bdcc" {
-  source     = "${path.module}/../notebooks/stream.py"
+  source     = "${path.module}/../notebooks/stream.ipynb"
   path       = "/notebooks/stream"
   depends_on = [databricks_cluster.bdcc]
 }
