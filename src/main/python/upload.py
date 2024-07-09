@@ -98,10 +98,7 @@ def incremental_upload(
     all_days.sort(key=lambda x: x[0])
 
     for index, (process_date, local_path) in enumerate(all_days):
-        start_time = time.time()
         upload_day_data(spark, local_path, process_date, incremental_hotel_weather_path)
-        end_time = time.time()
-        processing_time = end_time - start_time
         logger.info(f"Uploaded data for {process_date.strftime('%Y-%m-%d')}")
         logger.info(
             f"Processing {index + 1}/{len(all_days)} completed. Sleeping for {CYCLES_DELAY_TIME} seconds."

@@ -1,14 +1,13 @@
-# Spark SQL
+# Spark Streaming
 
 Link to project repo - https://github.com/Mamba369x/M13_SparkStreaming_PYTHON_AZURE/tree/main
 
 ## Prerequisites
 
 - Azure CLI
-- Databricks CLI
 - Terraform
 - Python 3
-- wget (for Linux/Mac) or PowerShell (for Windows)
+- wget (for Linux/Mac)
 - Make
 - Jq
 
@@ -40,10 +39,16 @@ make start
 
 * Step 2: Upload incremental copy with configurable CYCLES_DELAY_TIME equaling 1 second by default
 
+```bash
+make upload
+```
+
 ![Step 2:](screenshots/data_uploading.png)
-![Step 2:](screenshots/incremental_data.png)
 
-* Step 3-: Naviate to azure databricks workspace, upload and launch notebook stream.ipynb
+* Step 3: Naviate to azure databricks workspace, launch notebook stream.ipynb and observe results
 
+![Step 3:](screenshots/incremental_data.png)
 ![Step 3:](screenshots/execution_plan.png)
+![Step 3:](screenshots/top10_cities.png)
+![Step 3:](screenshots/plotted_data.png)
 
