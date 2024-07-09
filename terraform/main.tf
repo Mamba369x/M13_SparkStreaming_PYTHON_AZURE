@@ -73,7 +73,7 @@ resource "azurerm_databricks_workspace" "bdcc" {
   name                = "dbw${var.ENV}${var.LOCATION}"
   resource_group_name = azurerm_resource_group.bdcc.name
   location            = azurerm_resource_group.bdcc.location
-  sku                 = "premium"
+  sku                 = "standard"
 
   tags = {
     region = var.BDCC_REGION
@@ -90,7 +90,7 @@ data "azurerm_databricks_workspace" "bdcc" {
 resource "databricks_cluster" "bdcc" {
   cluster_name            = "cluster${var.ENV}${var.LOCATION}"
   spark_version           = "12.2.x-cpu-ml-scala2.12"
-  node_type_id            = "Standard_DS4_v2"
+  node_type_id            = "Standard_D8s_v3"
 
   num_workers = 8
 
