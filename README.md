@@ -45,7 +45,7 @@ make upload
 
 ![Step 2:](screenshots/data_uploading.png)
 
-* Step 3: Naviate to azure databricks workspace, launch notebook stream.ipynb and observe results
+* Step 3: Navigate to azure databricks workspace, launch notebook stream.ipynb and observe results
 
 ![Step 3:](screenshots/incremental_data.png)
 ![Step 3:](screenshots/execution_plan.png)
